@@ -147,9 +147,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1adfbfeaec72044fb2ccb914b2c17f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chunkSize: 59
-  loadRadius: 2
+  chunkSize: 10
+  loadRadius: 12
   mainCamera: {fileID: 1701562302}
+  landParent: {fileID: 0}
+  stationParent: {fileID: 0}
 --- !u!4 &1532647746
 Transform:
   m_ObjectHideFlags: 0

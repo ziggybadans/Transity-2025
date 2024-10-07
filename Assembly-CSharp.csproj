@@ -78,12 +78,10 @@
     <Compile Include="Assets\Scripts\Objects\LandObject.cs" />
     <Compile Include="Assets\Scripts\Objects\Chunk.cs" />
     <Compile Include="Assets\Scripts\Objects\StationObject.cs" />
-    <Compile Include="Assets\Scripts\ObjectPool.cs" />
+    <Compile Include="Assets\Scripts\Objects\GridObject.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Objects\Cell.cs" />
-    <Compile Include="Assets\Scripts\Objects\LineObject.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
-    <Compile Include="Assets\Scripts\VisualManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

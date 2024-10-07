@@ -1,10 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "StationObject", menuName = "Grid/StationObject")]
-public class StationObject : ScriptableObject
+[CreateAssetMenu(menuName = "Grid/StationObject")]
+public class StationObject : GridObject
 {
-    public string stationName = "New Station";
-    public Sprite stationSprite;
-
-    // Additional properties like station capacity, services, etc.
+    // Similarly, remove the enum if unnecessary
 }

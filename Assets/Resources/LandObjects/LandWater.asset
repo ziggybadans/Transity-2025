@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28a0eaa31b669cc41968888e808dc78f, type: 3}
-  m_Name: StationTown
+  m_Script: {fileID: 11500000, guid: c71553238f78d234a87748d842406c59, type: 3}
+  m_Name: LandWater
   m_EditorClassIdentifier: 
-  stationName: Town
-  stationSprite: {fileID: -2413806693520163455, guid: f167ea0d682a4734f868085ee3392b6a, type: 3}
+  prefab: {fileID: 405545901871054278, guid: 59e7ada4fa0ad7d4e9304d569dcd2793, type: 3}

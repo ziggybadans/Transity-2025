@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c71553238f78d234a87748d842406c59, type: 3}
   m_Name: LandLand
   m_EditorClassIdentifier: 
-  landType: Land
-  landSprite: {fileID: 0}
+  prefab: {fileID: 3319021284748586358, guid: 020a754deb39d6341a69bef5752d6a80, type: 3}

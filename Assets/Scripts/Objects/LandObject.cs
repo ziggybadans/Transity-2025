@@ -1,11 +1,8 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "LandObject", menuName = "Grid/LandObject")]
-public class LandObject : ScriptableObject
+[CreateAssetMenu(menuName = "Grid/LandObject")]
+public class LandObject : GridObject
 {
-    // Add properties and methods related to the land object
-    public string landType = "DefaultLand";
-    public Sprite landSprite;
-
-    // Additional properties like terrain features can be added here
+    // Remove the enum if each ScriptableObject represents a unique type
+    // If you still need categorization, consider using inheritance or separate classes
 }
