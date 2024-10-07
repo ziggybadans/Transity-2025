@@ -56,7 +56,7 @@ public class GridManager : MonoBehaviour
 
     private IEnumerator InitialChunkLoad()
     {
-        yield return new WaitForSeconds(0.1f); // Small delay to ensure everything is initialized
+        yield return new WaitForSeconds(2f); // Small delay to ensure everything is initialized
         Vector2 cameraPosition = mainCamera.transform.position;
         Vector2Int currentChunkCoord = GetChunkCoordinate(cameraPosition);
         LoadChunksAround(currentChunkCoord);
@@ -98,11 +98,20 @@ public class GridManager : MonoBehaviour
 
     private Vector2Int GetChunkCoordinate(Vector2 position)
     {
-        // Calculate the chunk coordinates based on the world position
         int x = Mathf.FloorToInt(position.x / chunkSize);
         int y = Mathf.FloorToInt(position.y / chunkSize);
-        return new Vector2Int(x, y);
+
+        // Check if the position is exactly on the chunk boundary for negative coordinates
+        bool isXBoundary = Mathf.Abs(position.x % chunkSize) < Mathf.Epsilon;
+        bool isYBoundary = Mathf.Abs(position.y % chunkSize) < Mathf.Epsilon;
+
+        // Only subtract 1 if the position is not exactly on the boundary
+        return new Vector2Int(
+            (position.x < 0 && !isXBoundary) ? x - 1 : x,
+            (position.y < 0 && !isYBoundary) ? y - 1 : y
+        );
     }
+
 
     private void LoadChunksAround(Vector2Int center)
     {
