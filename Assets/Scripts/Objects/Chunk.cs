@@ -31,6 +31,11 @@ public class Chunk
     public LandObject[] landObjects; // Assign via inspector or loader
     public StationObject[] stationObjects; // Assign via inspector or loader
 
+    private ProceduralGenerator proceduralGenerator;
+    private LandObject oceanLandObject;
+    private LandObject landLandObject;
+    private LandObject waterLandObject;
+
     // Constructor
     public Chunk(Vector2Int coord, int chunkSize)
     {
@@ -55,6 +60,15 @@ public class Chunk
         }
     }
 
+    // Initialize Procedural Generation
+    public void InitializeProceduralGeneration(ProceduralGenerator generator, LandObject ocean, LandObject land, LandObject water)
+    {
+        proceduralGenerator = generator;
+        oceanLandObject = ocean;
+        landLandObject = land;
+        waterLandObject = water;
+    }
+
     // Loads the chunk (procedurally generates or loads from persistence)
     public void Load()
     {
@@ -73,8 +87,8 @@ public class Chunk
     {
         foreach (var cell in cells.Values)
         {
-            // Assign a land object to the cell
-            LandObject land = GenerateLandObject(cell.worldPosition);
+            // Assign a land object to the cell using ProceduralGenerator
+            LandObject land = proceduralGenerator.DetermineLandObject(cell.worldPosition, oceanLandObject, landLandObject, waterLandObject);
             if (land != null)
             {
                 cell.SetLandObject(land);
@@ -297,6 +311,7 @@ public class Chunk
     private StationObject GenerateStationObject(Vector2Int pos)
     {
         if (stationObjects.Length == 0) return null; // Return null if no station objects are available
+        // Use ProceduralGenerator or another method to determine station placement if needed
         int index = UnityEngine.Random.Range(0, stationObjects.Length); // Randomly select a station object
         return stationObjects[index];
     }

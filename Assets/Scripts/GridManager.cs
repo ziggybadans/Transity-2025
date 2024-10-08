@@ -5,8 +5,19 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
+    private static GridManager _instance;
+
+    // Existing fields...
     public int chunkSize = 100; // Number of cells per chunk side
     public int loadRadius = 2;  // Number of chunks to load around the camera
+
+    // Procedural Generator
+    public ProceduralGenerator proceduralGenerator;
+
+    // Specific LandObjects for terrain types
+    public LandObject oceanLandObject;
+    public LandObject landLandObject;
+    public LandObject waterLandObject;
 
     // Dictionary to store active chunks with their coordinates as the key
     public Dictionary<Vector2Int, Chunk> activeChunks = new Dictionary<Vector2Int, Chunk>();
@@ -35,6 +46,19 @@ public class GridManager : MonoBehaviour
 
         InitializeParents();
 
+        // Initialize ProceduralGenerator with desired parameters
+        proceduralGenerator = new ProceduralGenerator(seed: 42, scale: 100f, riverThreshold: 0.6f, lakeThreshold: 0.55f);
+
+        // Load specific LandObjects
+        oceanLandObject = Resources.Load<LandObject>("LandObjects/LandOcean");
+        landLandObject = Resources.Load<LandObject>("LandObjects/LandLand");
+        waterLandObject = Resources.Load<LandObject>("LandObjects/LandWater");
+
+        if (oceanLandObject == null || landLandObject == null || waterLandObject == null)
+        {
+            Debug.LogError("One or more specific LandObjects (Ocean, Land, Water) could not be loaded. Ensure they exist in Resources/LandObjects.");
+        }
+
         // Force an initial load of chunks
         Vector2 cameraPosition = mainCamera.transform.position;
 
@@ -61,7 +85,6 @@ public class GridManager : MonoBehaviour
         Vector2Int currentChunkCoord = GetChunkCoordinate(cameraPosition);
         LoadChunksAround(currentChunkCoord);
     }
-
 
     void Update()
     {
@@ -124,7 +147,10 @@ public class GridManager : MonoBehaviour
                 {
                     Chunk newChunk = new Chunk(coord, chunkSize);
 
-                    newChunk.landObjects = LoadLandObjects();
+                    // Initialize the chunk with ProceduralGenerator and specific LandObjects
+                    newChunk.InitializeProceduralGeneration(proceduralGenerator, oceanLandObject, landLandObject, waterLandObject);
+
+                    newChunk.landObjects = LoadLandObjects(); // You can remove this if not needed
                     newChunk.stationObjects = LoadStationObjects();
 
                     newChunk.OnCellLoaded += HandleCellLoaded;
